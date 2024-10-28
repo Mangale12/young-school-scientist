@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 27, 2024 at 06:10 AM
+-- Generation Time: Oct 28, 2024 at 07:05 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `younglms`
+-- Database: `school_young_scientist`
 --
 
 -- --------------------------------------------------------
@@ -140,10 +140,17 @@ INSERT INTO `course_sessions` (`id`, `course_id`, `session`, `description`, `cre
 CREATE TABLE `course_student` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `course_id` bigint(20) UNSIGNED NOT NULL,
-  `student_id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `course_student`
+--
+
+INSERT INTO `course_student` (`id`, `course_id`, `user_id`, `created_at`, `updated_at`) VALUES
+(3, 6, 35, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -168,7 +175,31 @@ INSERT INTO `course_teacher` (`id`, `course_id`, `user_id`, `created_at`, `updat
 (5, 9, 34, NULL, NULL),
 (6, 6, 18, NULL, NULL),
 (7, 10, 4, NULL, NULL),
-(8, 9, 4, NULL, NULL);
+(8, 9, 4, NULL, NULL),
+(9, 6, 19, NULL, NULL),
+(10, 6, 22, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `course_teacher_resource`
+--
+
+CREATE TABLE `course_teacher_resource` (
+  `id` bigint(20) NOT NULL,
+  `course_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `teacher_resource_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `course_teacher_resource`
+--
+
+INSERT INTO `course_teacher_resource` (`id`, `course_id`, `teacher_resource_id`, `created_at`, `updated_at`) VALUES
+(1, 6, 1, '2024-10-28 04:43:18', '2024-10-28 04:43:18'),
+(2, 6, 3, '2024-10-28 04:57:33', '2024-10-28 04:57:33');
 
 -- --------------------------------------------------------
 
@@ -296,7 +327,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (10, '2024_10_09_082339_add_video_url_to_courses_table', 7),
 (11, '2024_10_25_044908_create_course_user_table', 8),
 (12, '2024_10_25_055529_create_course_student_table', 9),
-(13, '2024_10_25_065729_create_course_teacher_table', 10);
+(13, '2024_10_25_065729_create_course_teacher_table', 10),
+(14, '2024_10_28_022533_course_teacher_resources', 11);
 
 -- --------------------------------------------------------
 
@@ -353,8 +385,8 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('HBJHq1lZjNR9ogMbC8QzBoHPAeLC5A9DfyhyEco6', 5, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiazFseThnODd3cVdBNmF2bHBVVnMwRTJtTFpEYkU1V3pQcnUxdjBRVyI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzU6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi90ZWFjaGVyIjt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6NTt9', 1730005704),
-('Z12OzOzbN6aOLXHwOXDuchWnLQALD3aABHf6wDKS', 5, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiTVVuRTZEYll6cDllWTZnaUlVZU5QYUhHdlh3ZlpBT0ZvalM5M0RkNCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjU7fQ==', 1729860178);
+('CtM4e2qA3ZD0QTrAnSAHS5ER92s77HUGjE8ftBnl', 2, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiU2VkTGx5aVA1TlZydlh0ZmNnY0tMd2ZXUmFtbWhvUFJEcm9zRkJIWiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NjQ6Imh0dHA6Ly9sb2NhbGhvc3Qvc2Nob29sLXlvdW5nLXNjaWVudGlzdC9wdWJsaWMvc3R1ZGVudC9jb3Vyc2VzLzYiO31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToyO30=', 1730093766),
+('lwjC6cCS7YiUsR0NfkJEH9VmnuJVji4bKUoFsmRA', 5, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiZlpWMERXYm9oZ0l4ZzZYRk9jUFhWOFdzcGlmMkVjVDdXSllaMFhCRiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NjQ6Imh0dHA6Ly9sb2NhbGhvc3Qvc2Nob29sLXlvdW5nLXNjaWVudGlzdC9wdWJsaWMvdGVhY2hlcl9yZXNvdXJjZXMiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aTo1O30=', 1730095326);
 
 -- --------------------------------------------------------
 
@@ -376,7 +408,37 @@ CREATE TABLE `teacher_resources` (
 --
 
 INSERT INTO `teacher_resources` (`id`, `title`, `description`, `file`, `created_at`, `updated_at`) VALUES
-(1, 'Teacher Resources', 'this is teacher resources', 'teacher_resources/66vKCpIQ3ZNPkVW6pHOaRYlVK4GUURyAirNQb5oc.pdf', '2024-10-04 00:38:24', '2024-10-04 00:38:24');
+(1, 'Teacher Resources', 'this is teacher resources', 'teacher_resources/66vKCpIQ3ZNPkVW6pHOaRYlVK4GUURyAirNQb5oc.pdf', '2024-10-04 00:38:24', '2024-10-04 00:38:24'),
+(3, 'sdfsafdsa', 'fdfafa', 'teacher_resources/IzgrPaKFAQXkUlEUfSGiBk70VTE8ZgDgI9rjfldQ.json', '2024-10-27 20:13:55', '2024-10-27 20:13:55'),
+(4, 'sdfafsa', 'fdsafdasf', 'uploads/teacher_resources/1730081286_8thsem_report_PDF.docx', '2024-10-27 20:23:06', '2024-10-27 20:23:06');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `teacher_teacher_resource`
+--
+
+CREATE TABLE `teacher_teacher_resource` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `teacher_resource_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `teacher_teacher_resource`
+--
+
+INSERT INTO `teacher_teacher_resource` (`id`, `user_id`, `teacher_resource_id`, `created_at`, `updated_at`) VALUES
+(1, 4, 1, NULL, NULL),
+(2, 4, 3, NULL, NULL),
+(3, 18, 1, NULL, NULL),
+(4, 18, 3, NULL, NULL),
+(5, 19, 1, NULL, NULL),
+(6, 19, 3, NULL, NULL),
+(7, 22, 1, NULL, NULL),
+(8, 22, 3, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -494,7 +556,7 @@ ALTER TABLE `course_sessions`
 ALTER TABLE `course_student`
   ADD PRIMARY KEY (`id`),
   ADD KEY `course_student_course_id_foreign` (`course_id`),
-  ADD KEY `course_student_student_id_foreign` (`student_id`);
+  ADD KEY `course_student_student_id_foreign` (`user_id`);
 
 --
 -- Indexes for table `course_teacher`
@@ -503,6 +565,14 @@ ALTER TABLE `course_teacher`
   ADD PRIMARY KEY (`id`),
   ADD KEY `course_teacher_course_id_foreign` (`course_id`),
   ADD KEY `course_teacher_user_id_foreign` (`user_id`);
+
+--
+-- Indexes for table `course_teacher_resource`
+--
+ALTER TABLE `course_teacher_resource`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `course_id` (`course_id`),
+  ADD KEY `teacher_resource_id` (`teacher_resource_id`);
 
 --
 -- Indexes for table `course_user`
@@ -571,6 +641,14 @@ ALTER TABLE `teacher_resources`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `teacher_teacher_resource`
+--
+ALTER TABLE `teacher_teacher_resource`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `teacher_id` (`user_id`),
+  ADD KEY `teacher_resource_id` (`teacher_resource_id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -603,13 +681,19 @@ ALTER TABLE `course_sessions`
 -- AUTO_INCREMENT for table `course_student`
 --
 ALTER TABLE `course_student`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `course_teacher`
 --
 ALTER TABLE `course_teacher`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `course_teacher_resource`
+--
+ALTER TABLE `course_teacher_resource`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `course_user`
@@ -639,7 +723,7 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `schools`
@@ -651,7 +735,13 @@ ALTER TABLE `schools`
 -- AUTO_INCREMENT for table `teacher_resources`
 --
 ALTER TABLE `teacher_resources`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `teacher_teacher_resource`
+--
+ALTER TABLE `teacher_teacher_resource`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -674,7 +764,7 @@ ALTER TABLE `course_sessions`
 --
 ALTER TABLE `course_student`
   ADD CONSTRAINT `course_student_course_id_foreign` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `course_student_student_id_foreign` FOREIGN KEY (`student_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `course_student_student_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `course_teacher`
@@ -684,11 +774,25 @@ ALTER TABLE `course_teacher`
   ADD CONSTRAINT `course_teacher_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
+-- Constraints for table `course_teacher_resource`
+--
+ALTER TABLE `course_teacher_resource`
+  ADD CONSTRAINT `course_teacher_resource_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `course_teacher_resource_ibfk_2` FOREIGN KEY (`teacher_resource_id`) REFERENCES `teacher_resources` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `course_user`
 --
 ALTER TABLE `course_user`
   ADD CONSTRAINT `course_user_course_id_foreign` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `course_user_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `teacher_teacher_resource`
+--
+ALTER TABLE `teacher_teacher_resource`
+  ADD CONSTRAINT `teacher_teacher_resource_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `teacher_teacher_resource_ibfk_2` FOREIGN KEY (`teacher_resource_id`) REFERENCES `teacher_resources` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
